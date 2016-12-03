@@ -38,10 +38,31 @@ public class InitialSpecificationTest {
 
     @Test
     public void when_entering_provided_example_values_expected_results_are_output() {
+        executeInputAndCalculationSteps("100", "5");
+
+        onView(withText("£105.00")).check(matches(isDisplayed()));
+        onView(withText("£110.25")).check(matches(isDisplayed()));
+        onView(withText("£115.76")).check(matches(isDisplayed()));
+        onView(withText("£121.55")).check(matches(isDisplayed()));
+        onView(withText("£127.62")).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void when_entering_new_values_expeted_results_are_output() {
+        executeInputAndCalculationSteps("200", "2");
+
+        onView(withText("£204.00")).check(matches(isDisplayed()));
+        onView(withText("£208.08")).check(matches(isDisplayed()));
+        onView(withText("£212.24")).check(matches(isDisplayed()));
+        onView(withText("£216.49")).check(matches(isDisplayed()));
+        onView(withText("£220.82")).check(matches(isDisplayed()));
+    }
+
+    private void executeInputAndCalculationSteps(String deposit, String interest) {
         onView(withId(R.id.results_list)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
 
-        onView(withId(R.id.deposit_amount)).perform(typeText("100"), closeSoftKeyboard());
-        onView(withId(R.id.interest_rate)).perform(typeText("5"), closeSoftKeyboard());
+        onView(withId(R.id.deposit_amount)).perform(typeText(deposit), closeSoftKeyboard());
+        onView(withId(R.id.interest_rate)).perform(typeText(interest), closeSoftKeyboard());
 
         onView(withId(R.id.calculate_button)).perform(click());
 
@@ -49,12 +70,6 @@ public class InitialSpecificationTest {
         for (int i = 2; i <= 5; i++) {
             onView(withText("After " + i + " years")).check(matches(isDisplayed()));
         }
-
-        onView(withText("£105.00")).check(matches(isDisplayed()));
-        onView(withText("£110.25")).check(matches(isDisplayed()));
-        onView(withText("£115.76")).check(matches(isDisplayed()));
-        onView(withText("£121.55")).check(matches(isDisplayed()));
-        onView(withText("£127.62")).check(matches(isDisplayed()));
     }
 }
 
