@@ -46,6 +46,16 @@ public final class CompoundCalculatorServiceTest {
         assertThat(compoundCalculatorService.getFiveYearProjection(deposit, percentageRate), is(expected));
     }
 
+    @Test
+    public void forAnotherDepositAmountAndInterestRateACollectionOfFiveCorrectProjectionValuesShouldBeReturned() throws Exception {
+        double deposit = 100000.24;
+        double percentageRate = 9.99;
+
+        List<Double> expected = Arrays.asList(109990.26, 120978.29, 133064.02, 146357.12, 160978.19);
+
+        assertThat(compoundCalculatorService.getFiveYearProjection(deposit, percentageRate), is(expected));
+    }
+
     private class CompoundCalculatorService {
         public List<Double> getFiveYearProjection(double deposit, double percentageRate) {
             List<Double> results = new ArrayList<>();
