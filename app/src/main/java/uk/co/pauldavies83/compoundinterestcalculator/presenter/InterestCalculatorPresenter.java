@@ -1,9 +1,12 @@
 package uk.co.pauldavies83.compoundinterestcalculator.presenter;
 
+import java.util.List;
+
 import uk.co.pauldavies83.compoundinterestcalculator.data.CompoundCalculatorService;
+import uk.co.pauldavies83.compoundinterestcalculator.data.LocalCompoundCalculatorService;
 import uk.co.pauldavies83.compoundinterestcalculator.view.InterestCalculator;
 
-public final class InterestCalculatorPresenter implements InterestCalculator.Interactions {
+public final class InterestCalculatorPresenter implements InterestCalculator.Interactions, CompoundCalculatorService.AsyncResult {
 
     private InterestCalculator.View view;
     private CompoundCalculatorService service;
@@ -17,9 +20,14 @@ public final class InterestCalculatorPresenter implements InterestCalculator.Int
     @Override
     public void onCalculateClicked(String deposit, String interestRate) {
         try {
-            view.resultsChanged(service.getFiveYearProjection(Double.parseDouble(deposit), Double.parseDouble(interestRate)));
-        } catch (CompoundCalculatorService.NegativeNumberArgumentExeption negativeNumberArgumentExeption) {
+            service.getFiveYearProjection(Double.parseDouble(deposit), Double.parseDouble(interestRate), this);
+        } catch (LocalCompoundCalculatorService.NegativeNumberArgumentExeption negativeNumberArgumentExeption) {
             negativeNumberArgumentExeption.printStackTrace();
         }
+    }
+
+    @Override
+    public void onFiveYearProjectionResultFinished(List<Double> fiveYearProjection) {
+        view.resultsChanged(fiveYearProjection);
     }
 }

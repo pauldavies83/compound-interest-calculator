@@ -3,6 +3,7 @@ package uk.co.pauldavies83.compoundinterestcalculator.application;
 import android.app.Application;
 
 import uk.co.pauldavies83.compoundinterestcalculator.data.CompoundCalculatorService;
+import uk.co.pauldavies83.compoundinterestcalculator.data.LocalCompoundCalculatorService;
 
 public final class CompoundInterestCalculatorApplication extends Application implements AppContainer {
 
@@ -11,7 +12,7 @@ public final class CompoundInterestCalculatorApplication extends Application imp
     @Override
     public void onCreate() {
         super.onCreate();
-        service = new CompoundCalculatorService();
+        service = new LocalCompoundCalculatorService();
     }
 
     @Override
