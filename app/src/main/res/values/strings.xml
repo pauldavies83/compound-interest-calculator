@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Compound Interest Calculator</string>
+
+    <string name="deposit_amount_label">Deposit Amount (£)</string>
+    <string name="interest_rate_label">Interest Rate (%)</string>
+    <string name="calculate_button_text">Calculate</string>
 </resources>
