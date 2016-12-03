@@ -6,12 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import uk.co.pauldavies83.compoundinterestcalculator.R;
 
 final class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolder> {
 
     private final String[] labels = new String[]{"After 1 year", "After 2 years", "After 3 years", "After 4 years", "After 5 years"};
-    private final String[] values = new String[]{"£105.00", "£110.25", "£115.76", "£121.55", "£127.62"};
+    private List<String> values;
+
+    ResultsAdapter(List<String> values) {
+        this.values = values;
+    }
 
     @Override
     public ResultsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -22,12 +28,17 @@ final class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolde
     @Override
     public void onBindViewHolder(ResultsAdapter.ViewHolder holder, int position) {
         holder.resultLabel.setText(labels[position]);
-        holder.resultValue.setText(values[position]);
+        holder.resultValue.setText(values.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return values.size();
+    }
+
+    void setResults(List<String> results) {
+        this.values = results;
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

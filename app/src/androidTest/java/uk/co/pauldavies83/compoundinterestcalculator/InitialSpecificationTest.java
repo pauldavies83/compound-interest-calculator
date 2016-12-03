@@ -9,7 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import uk.co.pauldavies83.compoundinterestcalculator.view.MainActivity;
+import uk.co.pauldavies83.compoundinterestcalculator.view.InterestCalculatorActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -26,8 +26,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class InitialSpecificationTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
-            MainActivity.class);
+    public ActivityTestRule<InterestCalculatorActivity> mActivityRule = new ActivityTestRule<>(
+            InterestCalculatorActivity.class);
 
     @Test
     public void specification_ui_components_are_visible() throws Exception {
