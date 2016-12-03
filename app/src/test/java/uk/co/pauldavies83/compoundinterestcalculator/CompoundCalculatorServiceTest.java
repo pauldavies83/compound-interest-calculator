@@ -56,9 +56,27 @@ public final class CompoundCalculatorServiceTest {
         assertThat(compoundCalculatorService.getFiveYearProjection(deposit, percentageRate), is(expected));
     }
 
+    @Test(expected = NegativeNumberArgumentExeption.class)
+    public void providingANegativeDepositIsInvalid() throws Exception {
+        double deposit = -1.00;
+        double percentageRate = 1.00;
+
+        compoundCalculatorService.getFiveYearProjection(deposit, percentageRate);
+    }
+
+    @Test(expected = NegativeNumberArgumentExeption.class)
+    public void providingANegativeInterstRateIsInvalid() throws Exception {
+        double deposit = 1.00;
+        double percentageRate = -1.00;
+
+        compoundCalculatorService.getFiveYearProjection(deposit, percentageRate);
+    }
+
     private class CompoundCalculatorService {
-        public List<Double> getFiveYearProjection(double deposit, double percentageRate) {
+        public List<Double> getFiveYearProjection(double deposit, double percentageRate) throws NegativeNumberArgumentExeption {
             List<Double> results = new ArrayList<>();
+
+            if (deposit < 0 || percentageRate < 0) throw new NegativeNumberArgumentExeption("deposits cannot be less than zero");
 
             double decimalRate = percentageRate / 100;
 
@@ -69,6 +87,12 @@ public final class CompoundCalculatorServiceTest {
             }
 
             return results;
+        }
+    }
+
+    private class NegativeNumberArgumentExeption extends Exception {
+        public NegativeNumberArgumentExeption(String s) {
+            super(s);
         }
     }
 }
