@@ -9,8 +9,8 @@ import android.widget.EditText;
 import java.util.Collections;
 import java.util.List;
 
+import uk.co.pauldavies83.compoundinterestcalculator.application.AppContainer;
 import uk.co.pauldavies83.compoundinterestcalculator.R;
-import uk.co.pauldavies83.compoundinterestcalculator.data.CompoundCalculatorService;
 import uk.co.pauldavies83.compoundinterestcalculator.presenter.InterestCalculatorPresenter;
 
 public class InterestCalculatorActivity extends AppCompatActivity implements InterestCalculator.View {
@@ -25,7 +25,9 @@ public class InterestCalculatorActivity extends AppCompatActivity implements Int
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        presenter = new InterestCalculatorPresenter(this, new CompoundCalculatorService());
+        AppContainer container = (AppContainer) getApplication();
+
+        presenter = new InterestCalculatorPresenter(this, container.getCompoundCalculatorService());
     }
 
     @Override
