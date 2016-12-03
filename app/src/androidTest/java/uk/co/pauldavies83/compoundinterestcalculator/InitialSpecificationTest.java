@@ -44,7 +44,7 @@ public class InitialSpecificationTest {
         onView(withText("£110.25")).check(matches(isDisplayed()));
         onView(withText("£115.76")).check(matches(isDisplayed()));
         onView(withText("£121.55")).check(matches(isDisplayed()));
-        onView(withText("£127.62")).check(matches(isDisplayed()));
+        onView(withText("£127.63")).check(matches(isDisplayed()));
     }
 
     @Test

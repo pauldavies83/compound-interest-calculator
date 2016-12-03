@@ -7,12 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
 import uk.co.pauldavies83.compoundinterestcalculator.R;
 
 final class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolder> {
 
-    private final String[] labels = new String[]{"After 1 year", "After 2 years", "After 3 years", "After 4 years", "After 5 years"};
+    private static final String CURRENCY_FORMAT_STRING = "£%.2f";
+    private static final String[] LABELS = new String[]{"After 1 year", "After 2 years", "After 3 years", "After 4 years", "After 5 years"};
+
     private List<Double> values;
 
     ResultsAdapter(List<Double> values) {
@@ -27,8 +30,8 @@ final class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(ResultsAdapter.ViewHolder holder, int position) {
-        holder.resultLabel.setText(labels[position]);
-        holder.resultValue.setText(values.get(position).toString());
+        holder.resultLabel.setText(LABELS[position]);
+        holder.resultValue.setText(String.format(Locale.UK, CURRENCY_FORMAT_STRING, values.get(position)));
     }
 
     @Override
