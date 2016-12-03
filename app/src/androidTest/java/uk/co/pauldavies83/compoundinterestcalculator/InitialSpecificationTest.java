@@ -58,6 +58,16 @@ public class InitialSpecificationTest {
         onView(withText("£220.82")).check(matches(isDisplayed()));
     }
 
+    @Test
+    public void no_results_should_be_returned_for_an_invalid_input() throws Exception {
+        onView(withId(R.id.results_list)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+
+        onView(withId(R.id.deposit_amount)).perform(typeText("a"), closeSoftKeyboard());
+        onView(withId(R.id.interest_rate)).perform(typeText("b"), closeSoftKeyboard());
+
+        onView(withId(R.id.results_list)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+    }
+
     private void executeInputAndCalculationSteps(String deposit, String interest) {
         onView(withId(R.id.results_list)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
 
@@ -71,5 +81,6 @@ public class InitialSpecificationTest {
             onView(withText("After " + i + " years")).check(matches(isDisplayed()));
         }
     }
+
 }
 
