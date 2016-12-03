@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,10 +34,13 @@ public class InterestCalculatorActivity extends AppCompatActivity implements Int
         adapter = new ResultsAdapter(results, new AndroidStringProvider());
         resultsList.setAdapter(adapter);
 
+        final EditText deposit = (EditText) findViewById(R.id.deposit_amount);
+        final EditText interestRate = (EditText) findViewById(R.id.interest_rate);
+
         findViewById(R.id.calculate_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onCalculateClicked();
+                presenter.onCalculateClicked(deposit.getText().toString(), interestRate.getText().toString());
             }
         });
     }

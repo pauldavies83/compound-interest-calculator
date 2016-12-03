@@ -18,6 +18,8 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public final class InterestCalculatorPresenterTest {
 
+    static final String ANY_VALID_STRING = "0";
+
     @Mock
     InterestCalculator.View view;
 
@@ -32,7 +34,7 @@ public final class InterestCalculatorPresenterTest {
     @Test
     public void whenCalculateButtonIsPressedResultsInViewShouldUpdate() throws Exception {
         InterestCalculatorPresenter presenter = new InterestCalculatorPresenter(view, service);
-        presenter.onCalculateClicked();
+        presenter.onCalculateClicked(ANY_VALID_STRING, ANY_VALID_STRING);
 
         verify(view).resultsChanged(any(List.class));
     }
@@ -43,7 +45,18 @@ public final class InterestCalculatorPresenterTest {
         when(service.getFiveYearProjection(any(Double.class), any(Double.class))).thenReturn(expectedResults);
 
         InterestCalculatorPresenter presenter = new InterestCalculatorPresenter(view, service);
-        presenter.onCalculateClicked();
+        presenter.onCalculateClicked(ANY_VALID_STRING, ANY_VALID_STRING);
+
+        verify(view).resultsChanged(expectedResults);
+    }
+
+    @Test
+    public void whenCalculateButtonIsPressedPresenterShouldUseUserInputValuesAndRequestValuesFromServiceAndProvideResultsToView() throws Exception {
+        List<Double> expectedResults = Arrays.asList(1.00, 2.00, 3.00, 4.00, 5.00);
+        when(service.getFiveYearProjection(any(Double.class), any(Double.class))).thenReturn(expectedResults);
+
+        InterestCalculatorPresenter presenter = new InterestCalculatorPresenter(view, service);
+        presenter.onCalculateClicked(ANY_VALID_STRING, ANY_VALID_STRING);
 
         verify(view).resultsChanged(expectedResults);
     }

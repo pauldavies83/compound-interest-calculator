@@ -15,9 +15,9 @@ public final class InterestCalculatorPresenter implements InterestCalculator.Int
     }
 
     @Override
-    public void onCalculateClicked() {
+    public void onCalculateClicked(String deposit, String interestRate) {
         try {
-            view.resultsChanged(service.getFiveYearProjection(100.00, 5.00));
+            view.resultsChanged(service.getFiveYearProjection(Double.parseDouble(deposit), Double.parseDouble(interestRate)));
         } catch (CompoundCalculatorService.NegativeNumberArgumentExeption negativeNumberArgumentExeption) {
             negativeNumberArgumentExeption.printStackTrace();
         }

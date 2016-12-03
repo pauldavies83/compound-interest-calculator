@@ -10,6 +10,6 @@ public interface InterestCalculator {
     }
 
     interface Interactions {
-        void onCalculateClicked();
+        void onCalculateClicked(String s, String toString);
     }
 }
