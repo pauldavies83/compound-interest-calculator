@@ -21,8 +21,8 @@ public final class InterestCalculatorPresenter implements InterestCalculator.Int
     public void onCalculateClicked(String deposit, String interestRate) {
         try {
             service.getFiveYearProjection(Double.parseDouble(deposit), Double.parseDouble(interestRate), this);
-        } catch (LocalCompoundCalculatorService.NegativeNumberArgumentExeption negativeNumberArgumentExeption) {
-            negativeNumberArgumentExeption.printStackTrace();
+        } catch (LocalCompoundCalculatorService.NegativeNumberArgumentExeption | NumberFormatException exception) {
+            exception.printStackTrace();
         }
     }
 
