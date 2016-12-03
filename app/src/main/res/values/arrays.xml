@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="year_labels">
+        <item>@string/year_1_label</item>
+        <item>@string/year_2_label</item>
+        <item>@string/year_3_label</item>
+        <item>@string/year_4_label</item>
+        <item>@string/year_5_label</item>
+    </string-array>
+</resources>

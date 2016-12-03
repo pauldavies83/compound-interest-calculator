@@ -13,13 +13,17 @@ import uk.co.pauldavies83.compoundinterestcalculator.R;
 
 final class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolder> {
 
-    private static final String CURRENCY_FORMAT_STRING = "£%.2f";
-    private static final String[] LABELS = new String[]{"After 1 year", "After 2 years", "After 3 years", "After 4 years", "After 5 years"};
+    interface StringProvider {
+        String[] getYearLabels();
+        String getCurrencyFormatString();
+    }
 
     private List<Double> values;
+    private StringProvider stringProvider;
 
-    ResultsAdapter(List<Double> values) {
+    ResultsAdapter(List<Double> values, StringProvider stringProvider) {
         this.values = values;
+        this.stringProvider = stringProvider;
     }
 
     @Override
@@ -30,8 +34,8 @@ final class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(ResultsAdapter.ViewHolder holder, int position) {
-        holder.resultLabel.setText(LABELS[position]);
-        holder.resultValue.setText(String.format(Locale.UK, CURRENCY_FORMAT_STRING, values.get(position)));
+        holder.resultLabel.setText(stringProvider.getYearLabels()[position]);
+        holder.resultValue.setText(String.format(Locale.UK, stringProvider.getCurrencyFormatString(), values.get(position)));
     }
 
     @Override

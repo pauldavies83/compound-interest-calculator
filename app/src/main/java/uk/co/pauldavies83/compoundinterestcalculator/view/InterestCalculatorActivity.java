@@ -30,7 +30,7 @@ public class InterestCalculatorActivity extends AppCompatActivity implements Int
     @Override
     public void initView() {
         resultsList = (RecyclerView) findViewById(R.id.results_list);
-        adapter = new ResultsAdapter(results);
+        adapter = new ResultsAdapter(results, new AndroidStringProvider());
         resultsList.setAdapter(adapter);
 
         findViewById(R.id.calculate_button).setOnClickListener(new View.OnClickListener() {
@@ -47,4 +47,16 @@ public class InterestCalculatorActivity extends AppCompatActivity implements Int
         resultsList.setVisibility(View.VISIBLE);
     }
 
+
+    private class AndroidStringProvider implements ResultsAdapter.StringProvider {
+        @Override
+        public String[] getYearLabels() {
+            return getResources().getStringArray(R.array.year_labels);
+        }
+
+        @Override
+        public String getCurrencyFormatString() {
+            return getString(R.string.currency_format);
+        }
+    }
 }

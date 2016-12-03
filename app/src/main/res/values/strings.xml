@@ -4,4 +4,11 @@
     <string name="deposit_amount_label">Deposit Amount (£)</string>
     <string name="interest_rate_label">Interest Rate (%)</string>
     <string name="calculate_button_text">Calculate</string>
+    <string name="currency_format">£%.2f</string>
+
+    <string name="year_1_label">After 1 year</string>
+    <string name="year_2_label">After 2 years</string>
+    <string name="year_3_label">After 3 years</string>
+    <string name="year_4_label">After 4 years</string>
+    <string name="year_5_label">After 5 years</string>
 </resources>
