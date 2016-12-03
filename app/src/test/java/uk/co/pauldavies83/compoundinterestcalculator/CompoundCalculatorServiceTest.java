@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public final class CompoundCalculatorServiceTest {
 
@@ -20,15 +21,22 @@ public final class CompoundCalculatorServiceTest {
 
     @Test
     public void forADepositAmountAndInterestRateACollectionOfFiveValuesShouldBeReturned() throws Exception {
+        assertThat(compoundCalculatorService.getFiveYearProjection(0, 0), IsCollectionWithSize.hasSize(5));
+    }
+
+    @Test
+    public void forSpecificationADepositAmountAndInterestRateACollectionOfFiveValuesDefinedInSpecificationShouldBeReturned() throws Exception {
         double amount = 100.00;
         double percentageRate = 5.00;
 
-        assertThat(compoundCalculatorService.getFiveYearProjection(amount, percentageRate), IsCollectionWithSize.hasSize(5));
+        List<Double> expexctedFromSpecification = Arrays.asList(105.00, 110.25, 115.76, 121.55, 127.62);
+
+        assertThat(compoundCalculatorService.getFiveYearProjection(amount, percentageRate), is(expexctedFromSpecification));
     }
 
     private class CompoundCalculatorService {
-        public List<String> getFiveYearProjection(double amount, double percentageRate) {
-            return Arrays.asList("1", "2", "3", "4", "5");
+        public List<Double> getFiveYearProjection(double amount, double percentageRate) {
+            return Arrays.asList(105.00, 110.25, 115.76, 121.55, 127.62);
         }
     }
 }
