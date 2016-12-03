@@ -9,13 +9,14 @@ import java.util.Collections;
 import java.util.List;
 
 import uk.co.pauldavies83.compoundinterestcalculator.R;
+import uk.co.pauldavies83.compoundinterestcalculator.data.CompoundCalculatorService;
 import uk.co.pauldavies83.compoundinterestcalculator.presenter.InterestCalculatorPresenter;
 
 public class InterestCalculatorActivity extends AppCompatActivity implements InterestCalculator.View {
 
     private ResultsAdapter adapter;
     private RecyclerView resultsList;
-    private List<String> results = Collections.emptyList();
+    private List<Double> results = Collections.emptyList();
     private InterestCalculator.Interactions presenter;
 
     @Override
@@ -23,7 +24,7 @@ public class InterestCalculatorActivity extends AppCompatActivity implements Int
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        presenter = new InterestCalculatorPresenter(this);
+        presenter = new InterestCalculatorPresenter(this, new CompoundCalculatorService());
     }
 
     @Override
@@ -41,7 +42,7 @@ public class InterestCalculatorActivity extends AppCompatActivity implements Int
     }
 
     @Override
-    public void resultsChanged(List<String> results) {
+    public void resultsChanged(List<Double> results) {
         adapter.setResults(results);
         resultsList.setVisibility(View.VISIBLE);
     }

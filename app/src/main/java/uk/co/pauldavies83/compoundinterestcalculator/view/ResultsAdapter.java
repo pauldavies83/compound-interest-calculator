@@ -13,9 +13,9 @@ import uk.co.pauldavies83.compoundinterestcalculator.R;
 final class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolder> {
 
     private final String[] labels = new String[]{"After 1 year", "After 2 years", "After 3 years", "After 4 years", "After 5 years"};
-    private List<String> values;
+    private List<Double> values;
 
-    ResultsAdapter(List<String> values) {
+    ResultsAdapter(List<Double> values) {
         this.values = values;
     }
 
@@ -28,7 +28,7 @@ final class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolde
     @Override
     public void onBindViewHolder(ResultsAdapter.ViewHolder holder, int position) {
         holder.resultLabel.setText(labels[position]);
-        holder.resultValue.setText(values.get(position));
+        holder.resultValue.setText(values.get(position).toString());
     }
 
     @Override
@@ -36,7 +36,7 @@ final class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolde
         return values.size();
     }
 
-    void setResults(List<String> results) {
+    void setResults(List<Double> results) {
         this.values = results;
         notifyDataSetChanged();
     }

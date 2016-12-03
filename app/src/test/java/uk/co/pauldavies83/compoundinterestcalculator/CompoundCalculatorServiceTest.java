@@ -4,10 +4,10 @@ import org.hamcrest.collection.IsCollectionWithSize;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import uk.co.pauldavies83.compoundinterestcalculator.data.CompoundCalculatorService;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -56,7 +56,7 @@ public final class CompoundCalculatorServiceTest {
         assertThat(compoundCalculatorService.getFiveYearProjection(deposit, percentageRate), is(expected));
     }
 
-    @Test(expected = NegativeNumberArgumentExeption.class)
+    @Test(expected = CompoundCalculatorService.NegativeNumberArgumentExeption.class)
     public void providingANegativeDepositIsInvalid() throws Exception {
         double deposit = -1.00;
         double percentageRate = 1.00;
@@ -64,7 +64,7 @@ public final class CompoundCalculatorServiceTest {
         compoundCalculatorService.getFiveYearProjection(deposit, percentageRate);
     }
 
-    @Test(expected = NegativeNumberArgumentExeption.class)
+    @Test(expected = CompoundCalculatorService.NegativeNumberArgumentExeption.class)
     public void providingANegativeInterstRateIsInvalid() throws Exception {
         double deposit = 1.00;
         double percentageRate = -1.00;
@@ -72,27 +72,4 @@ public final class CompoundCalculatorServiceTest {
         compoundCalculatorService.getFiveYearProjection(deposit, percentageRate);
     }
 
-    private class CompoundCalculatorService {
-        public List<Double> getFiveYearProjection(double deposit, double percentageRate) throws NegativeNumberArgumentExeption {
-            List<Double> results = new ArrayList<>();
-
-            if (deposit < 0 || percentageRate < 0) throw new NegativeNumberArgumentExeption("deposits cannot be less than zero");
-
-            double decimalRate = percentageRate / 100;
-
-            for (int i = 1; i <= 5; i++) {
-                BigDecimal raw = BigDecimal.valueOf(deposit * Math.pow((1 + decimalRate), i));
-                raw = raw.setScale(2, BigDecimal.ROUND_HALF_UP);
-                results.add(raw.doubleValue());
-            }
-
-            return results;
-        }
-    }
-
-    private class NegativeNumberArgumentExeption extends Exception {
-        public NegativeNumberArgumentExeption(String s) {
-            super(s);
-        }
-    }
 }
