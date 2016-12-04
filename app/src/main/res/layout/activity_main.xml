@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.TextInputLayout
@@ -19,6 +20,7 @@
             android:id="@+id/deposit_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
             android:maxLines="1"
             android:hint="@string/deposit_amount_label"/>
 
@@ -34,6 +36,7 @@
             android:id="@+id/interest_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
             android:maxLines="1"
             android:hint="@string/interest_rate_label"/>
 
@@ -43,16 +46,19 @@
         android:id="@+id/calculate_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/calculate_button_text"
+        android:layout_marginTop="8dp"
         android:layout_below="@+id/interest_rate_layout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:text="@string/calculate_button_text"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/results_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:visibility="gone"
         android:layout_below="@id/calculate_button"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>

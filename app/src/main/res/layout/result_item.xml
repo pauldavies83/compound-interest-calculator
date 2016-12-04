@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="@dimen/result_adapter_item_height">
 
     <TextView
         android:id="@+id/result_label"
-        android:layout_weight="0.75"
-        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/result_value"
-        android:layout_weight="0.25"
-        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
