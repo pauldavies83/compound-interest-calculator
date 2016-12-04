@@ -4,13 +4,19 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.pauldavies83.compoundinterestcalculator.concurrency.ThreadScheduler;
+
 public class LocalCompoundCalculatorService implements CompoundCalculatorService {
 
-    List<Double> calculateFiveYearProjection(double deposit, double percentageRate) throws NegativeNumberArgumentExeption {
+    private ThreadScheduler threadScheduler;
+    private List<Double> fiveYearProjection;
+
+    public LocalCompoundCalculatorService(ThreadScheduler threadScheduler) {
+        this.threadScheduler = threadScheduler;
+    }
+
+    private List<Double> calculateFiveYearProjection(double deposit, double percentageRate) {
         List<Double> results = new ArrayList<>();
-
-        if (deposit < 0 || percentageRate < 0) throw new NegativeNumberArgumentExeption("deposits cannot be less than zero");
-
         double decimalRate = percentageRate / 100;
 
         for (int i = 1; i <= 5; i++) {
@@ -23,7 +29,23 @@ public class LocalCompoundCalculatorService implements CompoundCalculatorService
     }
 
     @Override
-    public void getFiveYearProjection(double deposit, double percentageRate, AsyncResult callback) throws NegativeNumberArgumentExeption {
-        callback.onFiveYearProjectionResultFinished(calculateFiveYearProjection(deposit, percentageRate));
+    public void getFiveYearProjection(final double deposit, final double percentageRate, final AsyncResult callback) throws NegativeNumberArgumentExeption {
+        if (deposit < 0 || percentageRate < 0) throw new NegativeNumberArgumentExeption("deposits cannot be less than zero");
+        threadScheduler.executeOnBackgroundThread(new Runnable() {
+            @Override
+            public void run() {
+                fiveYearProjection = calculateFiveYearProjection(deposit, percentageRate);
+                onFiveYearProjectionCalculated(callback);
+            }
+        });
+    }
+
+    private void onFiveYearProjectionCalculated(final AsyncResult callback) {
+        threadScheduler.executeOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                callback.onFiveYearProjectionResultFinished(fiveYearProjection);
+            }
+        });
     }
 }
