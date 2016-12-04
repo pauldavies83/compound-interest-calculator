@@ -19,6 +19,8 @@ public class InterestCalculatorActivity extends AppCompatActivity implements Int
     private RecyclerView resultsList;
     private List<Double> results = Collections.emptyList();
     private InterestCalculator.Interactions presenter;
+    private EditText deposit;
+    private EditText interestRate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +33,30 @@ public class InterestCalculatorActivity extends AppCompatActivity implements Int
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        sendUserInputToPresenter();
+    }
+
+    @Override
     public void initView() {
         resultsList = (RecyclerView) findViewById(R.id.results_list);
         adapter = new ResultsAdapter(results, new AndroidStringProvider());
         resultsList.setAdapter(adapter);
 
-        final EditText deposit = (EditText) findViewById(R.id.deposit_amount);
-        final EditText interestRate = (EditText) findViewById(R.id.interest_rate);
+        deposit = (EditText) findViewById(R.id.deposit_amount);
+        interestRate = (EditText) findViewById(R.id.interest_rate);
 
         findViewById(R.id.calculate_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onCalculateClicked(deposit.getText().toString(), interestRate.getText().toString());
+                sendUserInputToPresenter();
             }
         });
+    }
+
+    private void sendUserInputToPresenter() {
+        presenter.onCalculateClicked(deposit.getText().toString(), interestRate.getText().toString());
     }
 
     @Override
