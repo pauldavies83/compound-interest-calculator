@@ -1,1 +1,1 @@
-# compund-interest-calculator
+# compound-interest-calculator
