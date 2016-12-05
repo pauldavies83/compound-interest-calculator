@@ -1,9 +1,12 @@
 package uk.co.pauldavies83.compoundinterestcalculator.view;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.util.Collections;
@@ -50,13 +53,22 @@ public class InterestCalculatorActivity extends AppCompatActivity implements Int
         findViewById(R.id.calculate_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyboard();
                 sendUserInputToPresenter();
             }
         });
     }
 
+    private void hideSoftKeyboard() {
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(deposit.getWindowToken(), 0);
+    }
+
     private void sendUserInputToPresenter() {
-        presenter.onCalculateClicked(deposit.getText().toString(), interestRate.getText().toString());
+        String depositEntry = deposit.getText().toString();
+        String interestEntry = interestRate.getText().toString();
+        if (depositEntry.length() > 0 && interestEntry.length() > 0) {
+            presenter.onCalculateClicked(depositEntry, interestEntry);
+        }
     }
 
     @Override
